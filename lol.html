@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Соглашение</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        form, .contract {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .confirmation {
+            margin-top: 20px;
+            padding: 20px;
+            background: #e9ffe9;
+            border: 1px solid #b5ffb5;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Добро пожаловать!</h1>
+
+<div id="nameFormContainer">
+    <form id="nameForm">
+        <label for="name">Введите ваше имя:</label>
+        <input type="text" id="name" name="name" placeholder="Ваше имя" required>
+        <button type="submit">Продолжить</button>
+    </form>
+</div>
+
+<div id="contractContainer" style="display:none;">
+    <form id="agreementForm" class="contract">
+        <h2>Договор</h2>
+        <p id="contractText"></p>
+        <label>
+            <input type="checkbox" id="agreement" required>
+            Я согласен(а) с условиями.
+        </label>
+        <button type="submit">Подтвердить</button>
+    </form>
+</div>
+
+<div class="confirmation" id="confirmationMessage">
+    <h2>Спасибо!</h2>
+    <p>Вы успешно подтвердили своё согласие.</p>
+</div>
+
+<script>
+    const nameForm = document.getElementById('nameForm');
+    const contractContainer = document.getElementById('contractContainer');
+    const confirmationMessage = document.getElementById('confirmationMessage');
+    const contractText = document.getElementById('contractText');
+    
+    nameForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('name').value;
+
+        // Показать договор с именем пользователя
+        contractText.innerText = `
+            Я, ${name}, обязуюсь ежедневно выполнять следующие условия:
+            Отправлять одно фото в день в течение срока действия данного соглашения.
+        `;
+
+        document.getElementById('nameFormContainer').style.display = 'none';
+        contractContainer.style.display = 'block';
+    });
+
+    document.getElementById('agreementForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const checkbox = document.getElementById('agreement');
+        
+        if (checkbox.checked) {
+            contractContainer.style.display = 'none';
+            confirmationMessage.style.display = 'block';
+        }
+    });
+</script>
+
+</body>
+</html>
